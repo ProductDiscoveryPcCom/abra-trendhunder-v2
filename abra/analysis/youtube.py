@@ -12,6 +12,7 @@ import html
 
 import requests
 from abra.config.secrets import SERPAPI_KEY
+from abra.analysis.insights import detect_products_in_titles
 
 
 

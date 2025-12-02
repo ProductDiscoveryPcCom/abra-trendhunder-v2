@@ -12,7 +12,7 @@ import html
 from urllib.parse import urlparse
 
 from abra.config.constants import COUNTRIES, CHANNELS, PRODUCT_CATEGORIES
-from abra.core.pytrends import get_interest_over_time
+from abra.core.pytrends import get_interest_over_time, get_related_queries, get_related_topics
 
 
 def extract_brand_from_url(url):

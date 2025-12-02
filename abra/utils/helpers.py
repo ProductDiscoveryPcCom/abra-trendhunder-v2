@@ -11,6 +11,13 @@ import json
 import html
 
 from abra.config.constants import COUNTRIES
+from abra.analysis.insights import (
+    calculate_relevance, 
+    calculate_seasonality, 
+    classify_query_type, 
+    detect_seasonal_patterns
+)
+from abra.core.pytrends import get_query_trend
 
 
 
@@ -873,6 +880,9 @@ def display_queries_filtered(queries_data, categories, threshold, query_type="al
     Muestra queries filtradas con barras visuales, paginación y ordenamiento.
     SPRINT 1 - Estilo Glimpse
     """
+    # Import local para evitar ciclo circular
+    from abra.components.render import render_low_relevance_state, render_query_with_bar
+    
     if not queries_data:
         st.info("No hay datos de queries disponibles")
         return

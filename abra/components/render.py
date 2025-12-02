@@ -14,6 +14,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 from abra.config.constants import PRODUCT_CATEGORIES, CHANNELS
+from abra.utils.helpers import create_trend_chart
 
 
 

@@ -8,6 +8,8 @@ import re
 from urllib.parse import quote_plus
 import html
 
+from abra.analysis.insights import calculate_relevance
+
 def get_google_news(query, country='ES', language='es', max_results=10):
     """
     Obtiene noticias de Google News relacionadas con la query

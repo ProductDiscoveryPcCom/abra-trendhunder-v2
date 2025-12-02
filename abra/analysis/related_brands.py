@@ -6,6 +6,8 @@ import re
 from collections import Counter
 from typing import List, Dict
 
+from abra.analysis.serpapi.brands import classify_relationship, get_brand_category
+
 def detect_related_brands(queries_data, topics_data, main_brand):
     """
     Detecta marcas que se buscan junto a la marca principal

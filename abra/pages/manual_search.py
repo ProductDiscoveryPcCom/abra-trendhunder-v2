@@ -14,6 +14,7 @@ from abra.analysis.star_products import detect_star_products, render_star_produc
 from abra.analysis.seasonality_advanced import calculate_seasonality_by_country, compare_seasonality_countries
 from abra.analysis.serpapi_news import get_google_news_serpapi, analyze_news_sentiment_serpapi, render_news_panel_serpapi, render_news_mini_widget
 from abra.analysis.related_brands import detect_related_brands, render_related_brands
+from abra.analysis.historical import compare_with_history
 from abra.utils.sanitize import sanitize_query
 
 def render_manual_search(search_query: str, selected_countries: list, 
