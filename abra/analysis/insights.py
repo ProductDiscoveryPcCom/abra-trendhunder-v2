@@ -12,6 +12,7 @@ import html
 from urllib.parse import urlparse
 
 from abra.config.constants import COUNTRIES, CHANNELS, PRODUCT_CATEGORIES
+from abra.core.pytrends import get_interest_over_time
 
 
 def extract_brand_from_url(url):
@@ -667,10 +668,21 @@ def analyze_all_channels(brand, countries, categories, threshold):
                     }
             
             # Consolidar datos del país
+            # Calcular métricas agregadas de todos los canales
+            all_month_changes = [ch.get('month_change', 0) for ch in channel_results.values() if 'error' not in ch and ch.get('month_change') is not None]
+            all_quarter_changes = [ch.get('quarter_change', 0) for ch in channel_results.values() if 'error' not in ch and ch.get('quarter_change') is not None]
+            all_year_changes = [ch.get('year_change', 0) for ch in channel_results.values() if 'error' not in ch and ch.get('year_change') is not None]
+            all_avg_values = [ch.get('avg_value', 0) for ch in channel_results.values() if 'error' not in ch and ch.get('avg_value', 0) > 0]
+            
             all_channels_data[geo] = {
                 'country': country_name,
                 'channels': channel_results,
-                'consolidated': consolidate_channel_data(channel_results, brand, geo)
+                'consolidated': consolidate_channel_data(channel_results, brand, geo),
+                # Métricas agregadas
+                'month_change': sum(all_month_changes) / len(all_month_changes) if all_month_changes else 0,
+                'quarter_change': sum(all_quarter_changes) / len(all_quarter_changes) if all_quarter_changes else 0,
+                'year_change': sum(all_year_changes) / len(all_year_changes) if all_year_changes else 0,
+                'avg_value': sum(all_avg_values) / len(all_avg_values) if all_avg_values else 0
             }
     
     return all_channels_data

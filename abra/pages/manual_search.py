@@ -144,7 +144,7 @@ def render_manual_search(search_query: str, selected_countries: list,
                         all_queries.extend(data['queries']['related_queries']['rising'])
             
             # Detectar productos estrella
-            star_products = detect_star_products(all_queries, threshold_volume=30, threshold_growth=15.0)
+            star_products = detect_star_products(all_queries, threshold_volume=5, threshold_growth=5.0)
             
             if star_products:
                 # Resumen de métricas
@@ -419,14 +419,14 @@ def render_manual_search(search_query: str, selected_countries: list,
                 col1, col2, col3, col4 = st.columns(4)
                 
                 with col1:
-                    val = f"{data['month_change']:.1f}%" if data['month_change'] else "N/A"
-                    st.markdown(render_metric_card("Último Mes", val, data['month_change'], delay=1), unsafe_allow_html=True)
+                    val = f"{data.get('month_change', 0):.1f}%" if data.get('month_change') is not None else "N/A"
+                    st.markdown(render_metric_card("Último Mes", val, data.get('month_change', 0), delay=1), unsafe_allow_html=True)
                 with col2:
-                    val = f"{data['quarter_change']:.1f}%" if data['quarter_change'] else "N/A"
-                    st.markdown(render_metric_card("Trimestre", val, data['quarter_change'], delay=2), unsafe_allow_html=True)
+                    val = f"{data.get('quarter_change', 0):.1f}%" if data.get('quarter_change') is not None else "N/A"
+                    st.markdown(render_metric_card("Trimestre", val, data.get('quarter_change', 0), delay=2), unsafe_allow_html=True)
                 with col3:
-                    val = f"{data['year_change']:.1f}%" if data['year_change'] else "N/A"
-                    st.markdown(render_metric_card("Año", val, data['year_change'], delay=3), unsafe_allow_html=True)
+                    val = f"{data.get('year_change', 0):.1f}%" if data.get('year_change') is not None else "N/A"
+                    st.markdown(render_metric_card("Año", val, data.get('year_change', 0), delay=3), unsafe_allow_html=True)
                 with col4:
                     val = f"{data['avg_value']:.0f}/100" if data['avg_value'] else "N/A"
                     st.markdown(render_metric_card("Promedio 5Y", val, delay=4), unsafe_allow_html=True)
